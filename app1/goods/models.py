@@ -2,6 +2,7 @@ from tabnanny import verbose
 from django.db import models
 
 class Categories(models.Model):
+    """Изменение надписей в админ панели"""
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
 
@@ -24,6 +25,7 @@ class Products(models.Model):
     category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, verbose_name='Категория')
 
     class Meta:
+        """Изменение надписей в админ панели"""
         db_table = 'product'
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'

@@ -7,6 +7,7 @@ from goods.models import Categories, Products
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
+    # Для создания автоматически заполняемых полей, в данном месте для slug, берем образец с name
     prepopulated_fields = {'slug': ('name',)}
 
 
