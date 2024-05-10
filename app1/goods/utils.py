@@ -1,4 +1,3 @@
-from unittest import result
 from goods.models import Products
 from django.db.models import Q
 from django.contrib.postgres.search import (
