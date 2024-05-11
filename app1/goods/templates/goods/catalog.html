@@ -13,6 +13,7 @@
         <!-- Добавляем проверки, чтобы фильтрация применялась к результатам поиска, если так не сделать, то к поиску нельзя будет применить фильтрацию -->
         <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
             <div class="form-check text-white mx-3">
+                <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}"> <!-- вставила стиль,чтобы при отсутствия результата поиска в заданной категории футер прижался книзу-->
                 <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}> <!-- чтобы кнопка оставалась выбранной после выполнения запроса, а не слетала -->
                 {% if request.GET.q %}
                     <input type="hidden" name="q" value="{{ request.GET.q }}">
