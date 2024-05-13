@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
@@ -70,6 +71,10 @@ def profile(request):
             }
  
     return render(request, "users/profile.html", context)
+
+def users_cart(request):
+    return render(request, 'users/users-cart.html')
+
 
 @login_required
 def logout(request):
