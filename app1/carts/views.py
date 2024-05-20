@@ -1,4 +1,5 @@
 
+from django.contrib import sessions
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -22,6 +23,22 @@ def cart_add(request):
           else:
                Cart.objects.create(user=request.user, product=product, quantity=1)
 
+     else:
+          # если пользователь не авторизован
+          # делаем привязку по сессионному ключу
+          carts = Cart.objects.filter(
+               session_key=request.session.session_key, product=product)
+          
+          if carts.exists():
+               cart = carts.first()
+               if cart:
+                    cart.quantity += 1
+                    cart.save()
+          else:
+                Cart.objects.create(
+                    session_key=request.session.session_key, product=product, quantity=1)
+                    
+
      user_cart = get_user_carts(request)
      # перерисовка новой разметки содержимого корзины
      cart_items_html = render_to_string(
@@ -34,7 +51,7 @@ def cart_add(request):
 
      return JsonResponse(response_data)
 
-def cart_change(request):
+def cart_change(request) :
      
      cart_id = request.POST.get("cart_id") # получаем post запрос от ajax
      # Получаем конечное актуальное значение количества
