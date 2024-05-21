@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.urls import reverse
 
 class Categories(models.Model):
     """Изменение надписей в админ панели"""
@@ -35,9 +36,18 @@ class Products(models.Model):
         return f'{self.name} Количество - {self.quantity}'
     
 
+    def get_absolute_url(self):
+        """Отображение ссылки 'Смотреть на сайте' в админ панели продукта """
+        return reverse("catalog:product", kwargs={"product_slug": self.slug})
+    
+    
+
     def display_id(self):
         """Вычисление id товара"""
         return f"{self.id:05}"
+    
+
+
     
     def sell_price(self):
         """Вычисление скидки, если она есть у товара"""
